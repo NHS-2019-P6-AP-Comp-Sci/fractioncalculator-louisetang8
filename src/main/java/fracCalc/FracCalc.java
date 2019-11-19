@@ -7,15 +7,23 @@ package fracCalc;
 import java.util.*;
 
 public class FracCalc {
+	public static String equation = "";
 
 	// Asks user to input equation and uses for method produceAnswer
 	public static void main(String[] args) {
 		// TODO: Read the input from the user and call produceAnswer with an equation
-		Scanner console = new Scanner(System.in);
+
 		System.out.println("This will help you solve arithmetic operations betwen integers and/or fractions.");
-		System.out.println("Input your equation here: ");
-		String equation = console.nextLine();
-		produceAnswer(equation);
+		while (!equation.contentEquals("quit")) {
+			Scanner console = new Scanner(System.in);
+			System.out.println("Input your equation here: (type \"quit\" to exit the fraction calculator)");
+			equation = console.nextLine();
+			if (!equation.contentEquals("quit")) {
+				System.out.println(produceAnswer(equation));
+
+			}
+
+		}
 	}
 
 	// ** IMPORTANT ** DO NOT DELETE THIS FUNCTION. This function will be used to
@@ -38,8 +46,62 @@ public class FracCalc {
 		String firstOperand = input.substring(0, indexSpace);
 		String operator = input.substring((indexSpace + 1), (indexSpace + 2));
 		String secondOperand = input.substring(indexSpace + 3);
-		return secondOperand;
 
+		int whole1;
+		int num1;
+		int den1;
+		int underscore = firstOperand.indexOf("_");
+		int slash1 = firstOperand.indexOf("/");
+		if (underscore > 0) {
+			whole1 = Integer.parseInt(firstOperand.substring(0, underscore));
+			if (slash1 > 0) {
+				num1 = Integer.parseInt(firstOperand.substring(underscore + 1, slash1));
+				den1 = Integer.parseInt(firstOperand.substring(slash1 + 1));
+			} else {
+				num1 = 0;
+				den1 = 1;
+			}
+		} else {
+			if (slash1 > 0) {
+				whole1 = 0;
+				num1 = Integer.parseInt(firstOperand.substring(0, slash1));
+				den1 = Integer.parseInt(firstOperand.substring(slash1 + 1));
+			} else {
+				whole1 = Integer.parseInt(firstOperand.substring(0));
+				num1 = 0;
+				den1 = 1;
+			}
+		}
+		int whole2;
+		int num2;
+		int den2;
+		int underscore2 = secondOperand.indexOf("_");
+		int slash2 = secondOperand.indexOf("/");
+
+		if (underscore2 > 0) {
+			whole2 = Integer.parseInt(secondOperand.substring(0, underscore2));
+			if (slash2 > 0) {
+				num2 = Integer.parseInt(secondOperand.substring(underscore2 + 1, slash2));
+				den2 = Integer.parseInt(secondOperand.substring(slash2 + 1));
+			} else {
+				num2 = 0;
+				den2 = 1;
+			}
+		} else {
+			if (slash2 > 0) {
+				whole2 = 0;
+				num2 = Integer.parseInt(secondOperand.substring(0, slash2));
+				den2 = Integer.parseInt(secondOperand.substring(slash2 + 1));
+			} else {
+				whole2 = Integer.parseInt(secondOperand.substring(0));
+				num2 = 0;
+				den2 = 1;
+			}
+		}
+
+		String result = "whole:" + whole2 + " numerator:" + num2 + " denominator:" + den2;
+
+		return result;
 	}
 
 	// TODO: Fill in the space below with any helper methods that you think you will
