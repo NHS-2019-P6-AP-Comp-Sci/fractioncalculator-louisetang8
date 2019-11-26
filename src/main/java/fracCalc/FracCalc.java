@@ -40,16 +40,23 @@ public class FracCalc {
 
 	// Splits the equation up into operand 1, operator, and second operand and then
 	// returns second operand
+	static int whole1;
+	static int num1;
+	static int den1;
+	static int whole2;
+	static int num2;
+	static int den2;
+	static int wholeResult;
+	static int numResult;
+	static int denResult;
+	static int num3;
+	static int den3;
 	public static String produceAnswer(String input) {
 		// TODO: Implement this function to produce the solution to the input
 		int indexSpace = input.indexOf(" ");
 		String firstOperand = input.substring(0, indexSpace);
 		String operator = input.substring((indexSpace + 1), (indexSpace + 2));
 		String secondOperand = input.substring(indexSpace + 3);
-
-		int whole1;
-		int num1;
-		int den1;
 		int underscore = firstOperand.indexOf("_");
 		int slash1 = firstOperand.indexOf("/");
 		if (underscore > 0) {
@@ -72,9 +79,6 @@ public class FracCalc {
 				den1 = 1;
 			}
 		}
-		int whole2;
-		int num2;
-		int den2;
 		int underscore2 = secondOperand.indexOf("_");
 		int slash2 = secondOperand.indexOf("/");
 
@@ -98,11 +102,33 @@ public class FracCalc {
 				den2 = 1;
 			}
 		}
-
-		String result = "whole:" + whole2 + " numerator:" + num2 + " denominator:" + den2;
-
-		return result;
+		num1 = num1 + Math.abs(whole1) * den1; 
+		num2 = num2 + Math.abs(whole2) * den2;
+		if (whole1 < 0 ) {
+			num1 *= -1; 
+		}
+		if (whole2 < 0) {
+			num2 *= -1; 
+		}
+	
+		if (operator.equals("+")) {
+			num3 = (num1 * den2) + (num2 * den1);
+			den3 = (den1 * den2);
+		} else if (operator.equals("-")) {
+			num3 = (num1 * den2) - (num2 * den1);
+			den3 = (den1 * den2);
+		} else if (operator.equals("*")) {
+			num3 = (num1 * num2);
+			den3 = (den1 * den2);
+		} else if (operator.equals("/")) {
+			num3 = (num1 * den2);
+			den3 = (den1 *num2);
+		}
+	
+		String result = (num3 + "/" + den3);
+		return result; 
 	}
+	
 
 	// TODO: Fill in the space below with any helper methods that you think you will
 	// need
